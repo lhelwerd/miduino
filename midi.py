@@ -1,4 +1,3 @@
-import itertools
 import os
 import re
 import sys
@@ -56,7 +55,7 @@ class Program_Zumo(Program):
             volume = self.volumes[0]
             print("Volume: {}".format(volume))
 
-        duration_delay = all(duration == delay for duration, delay in itertools.izip(self.durations, self.delays))
+        duration_delay = all(duration == delay for duration, delay in zip(self.durations, self.delays))
 
         print("Durations are {0}equal to delays; {0}all notes are nonoverlapping.".format("" if duration_delay else "not "))
         print("Use of delays {} according to setting.".format("enabled" if self.use_delays else "disabled"))
@@ -201,7 +200,7 @@ class Program_Sequence(Program_Zumo):
         if volume is not None:
             melody += "V{} ".format(volume)
 
-        octave = Counter(self.octaves).most_common(1)[0][0]
+        octave = int(Counter(self.octaves).most_common(1)[0][0])
         melody += "O{} ".format(octave-1)
 
         beats = self._BPM*60*self.count_notes()
@@ -214,7 +213,7 @@ class Program_Sequence(Program_Zumo):
                 duration = 0
             else:
                 v = "V{} ".format(volume) if volume is None else ""
-                o = octave - pitch
+                o = int(octave - pitch)
                 ox = ">" * o if o > 0 else "<" * o
                 d = int(math.ceil(self._BPM*1/float(duration)))
                 melody += "{}{}{}{}".format(v, ox, note, d if d > 1 else "")
