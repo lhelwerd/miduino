@@ -39,7 +39,7 @@ notes in an approximate manner.
 Thus the following command, after replacing the `<MIDI file>` with a path to 
 a file, creates Arduino programs for all tracks in that file:
 
-   midicomp <MIDI file> | python midi.py
+    midicomp <MIDI file> | python midi.py
 
 # License
 
